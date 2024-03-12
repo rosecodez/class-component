@@ -13,6 +13,7 @@ class ClassInput extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.editTask = this.editTask.bind(this)
   }
 
   handleInputChange(e) {
@@ -37,7 +38,12 @@ class ClassInput extends Component {
         count: state.count - 1,
     }));
   }
-  
+  editTask(e) {
+    this.setState((state) => ({
+        ...state,
+        inputVal: e.target.value,
+    }))
+  }
   render() {
     return (
       <section>
@@ -48,7 +54,7 @@ class ClassInput extends Component {
             type="text"
             name="task-entry"
             value={this.state.inputVal}
-            onChange={this.handleInputChange}
+            onChange={this.handleInputChange()}
           />
           <button type="submit">Submit</button>
         </form>
@@ -58,6 +64,7 @@ class ClassInput extends Component {
             <li key={todo}>
               {todo}
               <button onClick={() => this.deleteTask(index)}>Delete</button>
+              <button onClick = {() => this.editTask()}>Edit</button>
             </li>
           ))}
         </ul>
