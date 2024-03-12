@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 class ClassInput extends Component {
   constructor(props) {
@@ -7,6 +7,7 @@ class ClassInput extends Component {
     this.state = {
       todos: [],
       inputVal: "",
+      count: 0,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,12 +27,14 @@ class ClassInput extends Component {
     this.setState((state) => ({
       todos: state.todos.concat(state.inputVal),
       inputVal: "",
+      count: state.count + 1,
     }));
   }
 
   deleteTask(index) {
     this.setState((state) => ({
-        todos: state.todos.filter((_, i) => i !== index)
+        todos: state.todos.filter((_, i) => i !== index),
+        count: state.count - 1,
     }));
   }
   
@@ -49,7 +52,7 @@ class ClassInput extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <h4>All the tasks!</h4>
+        <h4>All the tasks! {this.state.count} tasks</h4>
         <ul>
           {this.state.todos.map((todo, index) => (
             <li key={todo}>
@@ -58,7 +61,7 @@ class ClassInput extends Component {
             </li>
           ))}
         </ul>
-        
+
       </section>
     );
   }
